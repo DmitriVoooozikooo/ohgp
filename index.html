@@ -42,17 +42,427 @@
 <script>
   
   const GAMES_CATALOG = [
-  { name: "1on1", icon: "⚽", url: "https://example.com/game/1on1" },
-  { name: "Football", icon: "🏈", url: "https://example.com/game/football" },
-  { name: "Basket Bros.", icon: "🏀", url: "https://example.com/game/basket-bros" },
-  { name: "Catch the Candy", icon: "🍬", url: "https://example.com/game/catch-the-candy" },
-  { name: "Portal Flash", icon: "🌀", url: "https://example.com/game/portal-flash" },
-  { name: "Color World", icon: "🎨", url: "https://example.com/game/color-world" },
-  { name: "There Is No Game", icon: "❓", url: "https://example.com/game/there-is-no-game" },
-  { name: "Boxhead:2play", icon: "🧟", url: "https://example.com/game/boxhead-2play" }
+  { name: "1.12", icon: "⛏️", url: "https://ohgp.onrender.com/offline/1.12.html" },
+  { name: "1.5", icon: "⛏️", url: "https://ohgp.onrender.com/offline/1.5.html" },
+  { name: "1.8", icon: "⛏️", url: "https://ohgp.onrender.com/offline/1.8.html" },
+  { name: "10 Minutes Till Dawn", icon: "🌙", url: "https://ohgp.onrender.com/offline/10minutestilldawn.html" },
+  { name: "12 Mini Battles", icon: "⚔️", url: "https://ohgp.onrender.com/offline/12minibattles.html" },
+  { name: "1v1 Soccer", icon: "⚽", url: "https://ohgp.onrender.com/offline/1on1soccer.html" },
+  { name: "1v1 Tennis", icon: "🎾", url: "https://ohgp.onrender.com/offline/1on1tennis.html" },
+  { name: "1v1.lol", icon: "🎯", url: "https://ohgp.onrender.com/offline/1v1.lol.html" },
+  { name: "2048", icon: "🔢", url: "https://ohgp.onrender.com/offline/2048.html" },
+  { name: "2048 Cupcakes", icon: "🧁", url: "https://ohgp.onrender.com/offline/2048cupcakes.html" },
+  { name: "3D Flight Simulator", icon: "✈️", url: "https://ohgp.onrender.com/offline/3Dflightsimulator.html" },
+  { name: "8 Ball Classic", icon: "🎱", url: "https://ohgp.onrender.com/offline/8ballclassic.html" },
+  { name: "Alpha 1.2.6", icon: "⛏️", url: "https://ohgp.onrender.com/offline/Alpha_1.2.6.html" },
+  { name: "Beta 1.3", icon: "⛏️", url: "https://ohgp.onrender.com/offline/Beta_1.3.html" },
+  { name: "Indev", icon: "🛠️", url: "https://ohgp.onrender.com/offline/Indev.html" },
+  { name: "Agar.io Lite", icon: "🟢", url: "https://ohgp.onrender.com/offline/agariolite.html" },
+  { name: "Age of War", icon: "🏛️", url: "https://ohgp.onrender.com/offline/ageofwar.html" },
+  { name: "Age of War 2", icon: "⚔️", url: "https://ohgp.onrender.com/offline/ageofwar2.html" },
+  { name: "Ages of Conflict", icon: "🌍", url: "https://ohgp.onrender.com/offline/agesofconflict.html" },
+  { name: "Among Us", icon: "👾", url: "https://ohgp.onrender.com/offline/amongus.html" },
+  { name: "Angry Birds", icon: "🐦", url: "https://ohgp.onrender.com/offline/angrybirds.html" },
+  { name: "Angry Birds Showdown", icon: "🔥", url: "https://ohgp.onrender.com/offline/angrybirdsshowdown.html" },
+  { name: "Angry Birds Space", icon:🪐", url: "https://ohgp.onrender.com/offline/angrybirdsspace.html" },
+  { name: "Awesome Tanks", icon: "💥", url: "https://ohgp.onrender.com/offline/awesometanks.html" },
+  { name: "Awesome Tanks 2", icon: "🔫", url: "https://ohgp.onrender.com/offline/awesometanks2.html" },
+  { name: "Backrooms", icon: "🚪", url: "https://ohgp.onrender.com/offline/backrooms.html" },
+  { name: "Bacon May Die", icon: "🥓", url: "https://ohgp.onrender.com/offline/baconmaydie.html" },
+  { name: "Bad Ice Cream", icon: "🍦", url: "https://ohgp.onrender.com/offline/badicecream.html" },
+  { name: "Bad Ice Cream 2", icon: "🍨", url: "https://ohgp.onrender.com/offline/badicecream2.html" },
+  { name: "Bad Ice Cream 3", icon: "🍧", url: "https://ohgp.onrender.com/offline/badicecream3.html" },
+  { name: "Bad Parenting", icon: "👨‍👧", url: "https://ohgp.onrender.com/offline/badparenting.html" },
+  { name: "Bad Piggies", icon: "🐷", url: "https://ohgp.onrender.com/offline/badpiggies.html" },
+  { name: "Baldi's Basics", icon: "📏", url: "https://ohgp.onrender.com/offline/baldisbasics.html" },
+  { name: "Baseball Bros", icon: "⚾", url: "https://ohgp.onrender.com/offline/baseballbros.html" },
+  { name: "Basketball Legends", icon: "🏀", url: "https://ohgp.onrender.com/offline/basketballlegends.html" },
+  { name: "Basketball Stars", icon: "🌟", url: "https://ohgp.onrender.com/offline/basketballstars.html" },
+  { name: "Basket Bros", icon: "🏀", url: "https://ohgp.onrender.com/offline/basketbros.html" },
+  { name: "Basket Random", icon: "🎲", url: "https://ohgp.onrender.com/offline/basketrandom.html" },
+  { name: "BitLife", icon: "📱", url: "https://ohgp.onrender.com/offline/bitlife.html" },
+  { name: "Bit Planes", icon: "✈️", url: "https://ohgp.onrender.com/offline/bitplanes.htm" },
+  { name: "Blocky Snakes", icon: "🐍", url: "https://ohgp.onrender.com/offline/blockysnakes.html" },
+  { name: "Bloons TD", icon: "🎈", url: "https://ohgp.onrender.com/offline/bloonsTD.html" },
+  { name: "Bloons TD 2", icon: "🎈", url: "https://ohgp.onrender.com/offline/bloonsTD2.html" },
+  { name: "Bloons TD 3", icon: "🎈", url: "https://ohgp.onrender.com/offline/bloonsTD3.html" },
+  { name: "Bloons TD 4", icon: "🎈", url: "https://ohgp.onrender.com/offline/bloonsTD4.html" },
+  { name: "Bloons TD 5", icon: "🎈", url: "https://ohgp.onrender.com/offline/bloonsTD5.html" },
+  { name: "Bloxorz", icon: "🧱", url: "https://ohgp.onrender.com/offline/bloxorz.html" },
+  { name: "Blumgi Racers", icon: "🏎️", url: "https://ohgp.onrender.com/offline/blumgiracers.html" },
+  { name: "Blumgi Rocket", icon: "🚀", url: "https://ohgp.onrender.com/offline/blumgirocket.html" },
+  { name: "Bob the Robber", icon: "🦹", url: "https://ohgp.onrender.com/offline/bobtherobber.html" },
+  { name: "Bob the Robber 2", icon: "💰", url: "https://ohgp.onrender.com/offline/bobtherobber2.html" },
+  { name: "Bob the Robber 5", icon: "💎", url: "https://ohgp.onrender.com/offline/bobtherobber5.html" },
+  { name: "Bouncy Motors", icon: "🚗", url: "https://ohgp.onrender.com/offline/bouncymotors.html" },
+  { name: "Bowmasters", icon: "🏹", url: "https://ohgp.onrender.com/offline/bowmasters.html" },
+  { name: "Boxing Random", icon: "🥊", url: "https://ohgp.onrender.com/offline/boxingrandom.htm" },
+  { name: "Breaking the Bank", icon: "🏦", url: "https://ohgp.onrender.com/offline/breakingthebank.html" },
+  { name: "Bubble Shooter", icon: "🫧", url: "https://ohgp.onrender.com/offline/bubbleshooter.html" },
+  { name: "Candy Crush", icon: "🍬", url: "https://ohgp.onrender.com/offline/candycrush.html" },
+  { name: "Capybara Clicker", icon: "🐹", url: "https://ohgp.onrender.com/offline/capybaraclicker.html" },
+  { name: "Car Drawing", icon: "✏️", url: "https://ohgp.onrender.com/offline/cardrawing.html" },
+  { name: "Car King Arena", icon: "👑", url: "https://ohgp.onrender.com/offline/carkingarena.html" },
+  { name: "Chess", icon: "♟️", url: "https://ohgp.onrender.com/offline/chess.html" },
+  { name: "Choppy Orc", icon: "🗡️", url: "https://ohgp.onrender.com/offline/choppyorc.html" },
+  { name: "circloO", icon: "⚪", url: "https://ohgp.onrender.com/offline/circloO.html" },
+  { name: "circloO 2", icon: "🔴", url: "https://ohgp.onrender.com/offline/circloO2.html" },
+  { name: "Clash of Vikings", icon: "🛡️", url: "https://ohgp.onrender.com/offline/clashofvikings.html" },
+  { name: "Cleanup.io", icon: "🧹", url: "https://ohgp.onrender.com/offline/cleanupio.html" },
+  { name: "Cluster Rush", icon: "📦", url: "https://ohgp.onrender.com/offline/clusterrush.html" },
+  { name: "Cookie Clicker", icon: "🍪", url: "https://ohgp.onrender.com/offline/cookieclicker.htm" },
+  { name: "Crazy Cars", icon: "🏎️", url: "https://ohgp.onrender.com/offline/crazycars.html" },
+  { name: "Crazy Cattle 3D", icon: "🐄", url: "https://ohgp.onrender.com/offline/crazycattle3D.html" },
+  { name: "Crazy Crash Landing", icon: "💥", url: "https://ohgp.onrender.com/offline/crazycrashlanding.html" },
+  { name: "Crazy Motorcycle", icon: "🏍️", url: "https://ohgp.onrender.com/offline/crazymotorcycle.html" },
+  { name: "Crossy Road", icon: "🐔", url: "https://ohgp.onrender.com/offline/crossyroad.htm" },
+  { name: "Cut the Rope", icon: "✂️", url: "https://ohgp.onrender.com/offline/cuttherope.html" },
+  { name: "Dadish", icon: "👨‍🍳", url: "https://ohgp.onrender.com/offline/dadish.html" },
+  { name: "Dadish 2", icon: "🍳", url: "https://ohgp.onrender.com/offline/dadish2.html" },
+  { name: "Dadish 3", icon: "🥔", url: "https://ohgp.onrender.com/offline/dadish3.html" },
+  { name: "Death Chase", icon: "💀", url: "https://ohgp.onrender.com/offline/deathchase.html" },
+  { name: "Death Run 3D", icon: "🏃", url: "https://ohgp.onrender.com/offline/deathrun3D.html" },
+  { name: "Demolition Derby Crash Racing", icon: "🚘", url: "https://ohgp.onrender.com/offline/demolitionderbycrashracing.html" },
+  { name: "Doodle Jump", icon: "📝", url: "https://ohgp.onrender.com/offline/doodlejump.html" },
+  { name: "Draw Climber", icon: "🖍️", url: "https://ohgp.onrender.com/offline/drawclimber.html" },
+  { name: "Dreadhead Parkour", icon: "🦘", url: "https://ohgp.onrender.com/offline/dreadheadparkour.htm" },
+  { name: "Drift Boss", icon: "🏎️", url: "https://ohgp.onrender.com/offline/driftboss.htm" },
+  { name: "Drive Mad", icon: "🚙", url: "https://ohgp.onrender.com/offline/drivemad.htm" },
+  { name: "Duck Life", icon: "🦆", url: "https://ohgp.onrender.com/offline/ducklife.html" },
+  { name: "Duck Life 2", icon: "🏆", url: "https://ohgp.onrender.com/offline/ducklife2.html" },
+  { name: "Duck Life 3", icon: "⭐", url: "https://ohgp.onrender.com/offline/ducklife3.html" },
+  { name: "Duck Life 4", icon: "💪", url: "https://ohgp.onrender.com/offline/ducklife4.html" },
+  { name: "Duck Life 5", icon: "🚀", url: "https://ohgp.onrender.com/offline/ducklife5.html" },
+  { name: "Ducklings.io", icon: "🐥", url: "https://ohgp.onrender.com/offline/ducklingsio.html" },
+  { name: "Eagle Ride", icon: "🦅", url: "https://ohgp.onrender.com/offline/eagleride.html" },
+  { name: "Earn to Die", icon: "🚗", url: "https://ohgp.onrender.com/offline/earntodie.html" },
+  { name: "Earn to Die 2", icon: "💀", url: "https://ohgp.onrender.com/offline/earntodie2.html" },
+  { name: "Eggy Car", icon: "🥚", url: "https://ohgp.onrender.com/offline/eggycar.html" },
+  { name: "Elastic Face", icon: "😜", url: "https://ohgp.onrender.com/offline/elasticface.htm" },
+  { name: "Escape Road", icon: "🛣️", url: "https://ohgp.onrender.com/offline/escaperoad.html" },
+  { name: "Escape Road 2", icon: "🚓", url: "https://ohgp.onrender.com/offline/escaperoad2.html" },
+  { name: "Escaping the Prison", icon: "🔓", url: "https://ohgp.onrender.com/offline/escapingtheprison.html" },
+  { name: "Evil Glitch", icon: "👾", url: "https://ohgp.onrender.com/offline/evilglitch.html" },
+  { name: "Fancy Pants Adventure", icon: "👖", url: "https://ohgp.onrender.com/offline/fancypantsadventure.html" },
+  { name: "Fancy Pants Adventure 2", icon: "✏️", url: "https://ohgp.onrender.com/offline/fancypantsadventure2.html" },
+  { name: "Fireboy and Watergirl", icon: "🔥💧", url: "https://ohgp.onrender.com/offline/fireboyandwatergirl.html" },
+  { name: "Fireboy and Watergirl 2", icon: "🌲", url: "https://ohgp.onrender.com/offline/fireboyandwatergirl2.html" },
+  { name: "Fireboy and Watergirl 3", icon: "❄️", url: "https://ohgp.onrender.com/offline/fireboyandwatergirl3.html" },
+  { name: "Fireboy and Watergirl 4", icon: "🏯", url: "https://ohgp.onrender.com/offline/fireboyandwatergirl4.html" },
+  { name: "Flappy Bird", icon: "🐦", url: "https://ohgp.onrender.com/offline/flappybird.html" },
+  { name: "Flood Runner 2", icon: "💧", url: "https://ohgp.onrender.com/offline/floodrunner2.html" },
+  { name: "Flood Runner 3", icon: "🌊", url: "https://ohgp.onrender.com/offline/floodrunner3.html" },
+  { name: "Flood Runner 4", icon: "🏃", url: "https://ohgp.onrender.com/offline/floodrunner4.html" },
+  { name: "Five Nights at Freddy's", icon: "🐻", url: "https://ohgp.onrender.com/offline/fnaf.html" },
+  { name: "FNAF 2", icon: "🎭", url: "https://ohgp.onrender.com/offline/fnaf2.html" },
+  { name: "FNAF 3", icon: "🔥", url: "https://ohgp.onrender.com/offline/fnaf3.html" },
+  { name: "FNAF 4", icon: "👻", url: "https://ohgp.onrender.com/offline/fnaf4.html" },
+  { name: "Football Bros", icon: "⚽", url: "https://ohgp.onrender.com/offline/footballbros.html" },
+  { name: "Football Legends", icon: "🏆", url: "https://ohgp.onrender.com/offline/footballlegends.html" },
+  { name: "Free Rider 3", icon: "🏍️", url: "https://ohgp.onrender.com/offline/freerider3.html" },
+  { name: "Fruit Ninja", icon: "🍉", url: "https://ohgp.onrender.com/offline/fruitninja.html" },
+  { name: "Funny Battle", icon: "😂", url: "https://ohgp.onrender.com/offline/funnybattle.html" },
+  { name: "Funny Battle 2", icon: "🤣", url: "https://ohgp.onrender.com/offline/funnybattle2.html" },
+  { name: "Funny Mad Racing", icon: "🏁", url: "https://ohgp.onrender.com/offline/funnymadracing.html" },
+  { name: "Funny Shooter 2", icon: "🔫", url: "https://ohgp.onrender.com/offline/funnyshooter2.html" },
+  { name: "Geometry Dash", icon: "⬛", url: "https://ohgp.onrender.com/offline/geometrydash.html" },
+  { name: "Geometry Dash Lite", icon: "🔲", url: "https://ohgp.onrender.com/offline/geometrydashlite.html" },
+  { name: "Geometry Vibes", icon: "🎵", url: "https://ohgp.onrender.com/offline/geometryvibes.html" },
+  { name: "Getaway Shootout", icon: "🚔", url: "https://ohgp.onrender.com/offline/getawayshootout.htm" },
+  { name: "Get on Top", icon: "💪", url: "https://ohgp.onrender.com/offline/getontop.html" },
+  { name: "Gladihoppers", icon: "⚔️", url: "https://ohgp.onrender.com/offline/gladihoppers.html" },
+  { name: "Google Baseball", icon: "⚾", url: "https://ohgp.onrender.com/offline/googlebaseball.html" },
+  { name: "Google Dino", icon: "🦖", url: "https://ohgp.onrender.com/offline/googledino.html" },
+  { name: "Granny", icon: "👵", url: "https://ohgp.onrender.com/offline/granny.html" },
+  { name: "Granny 2", icon: "🏚️", url: "https://ohgp.onrender.com/offline/granny2.html" },
+  { name: "Guess Their Answer", icon: "❓", url: "https://ohgp.onrender.com/offline/guesstheiranswer.html" },
+  { name: "Hanger 2", icon: "🪢", url: "https://ohgp.onrender.com/offline/hanger2.html" },
+  { name: "Happy Wheels", icon: "🛞", url: "https://ohgp.onrender.com/offline/happywheels.html" },
+  { name: "Helix Jump", icon: "🧬", url: "https://ohgp.onrender.com/offline/helixjump.html" },
+  { name: "Highway Traffic", icon: "🚦", url: "https://ohgp.onrender.com/offline/highwaytraffic.html" },
+  { name: "Hill Climb Racing Lite", icon: "⛰️", url: "https://ohgp.onrender.com/offline/hillclimbracinglite.html" },
+  { name: "Hole.io", icon: "🕳️", url: "https://ohgp.onrender.com/offline/holeio.html" },
+  { name: "House of Hazards", icon: "🏠", url: "https://ohgp.onrender.com/offline/houseofhazards.html" },
+  { name: "Hover Racer Drive", icon: "🛸", url: "https://ohgp.onrender.com/offline/hoverracerdrive.html" },
+  { name: "Idle Breakout", icon: "🧱", url: "https://ohgp.onrender.com/offline/idlebreakout.html" },
+  { name: "Iron Snout", icon: "🐷", url: "https://ohgp.onrender.com/offline/ironsnout.html" },
+  { name: "Jetpack Joyride", icon: "🎒", url: "https://ohgp.onrender.com/offline/jetpackjoyride.html" },
+  { name: "Johnny Trigger", icon: "🔫", url: "https://ohgp.onrender.com/offline/johnnytrigger.html" },
+  { name: "Jumping Shell", icon: "🐢", url: "https://ohgp.onrender.com/offline/jumpingshell.html" },
+  { name: "Karate Bros", icon: "🥋", url: "https://ohgp.onrender.com/offline/karatebros.html" },
+  { name: "Kart Bros", icon: "🏎️", url: "https://ohgp.onrender.com/offline/kartbros.html" },
+  { name: "Learn to Fly", icon: "🐧", url: "https://ohgp.onrender.com/offline/learntofly.html" },
+  { name: "Learn to Fly 2", icon: "🚀", url: "https://ohgp.onrender.com/offline/learntofly2.html" },
+  { name: "Learn to Fly 3", icon: "🪶", url: "https://ohgp.onrender.com/offline/learntofly3.html" },
+  { name: "Learn to Fly Idle", icon: "⏸️", url: "https://ohgp.onrender.com/offline/learntoflyidle.html" },
+  { name: "Level Devil", icon: "😈", url: "https://ohgp.onrender.com/offline/leveldevil.html" },
+  { name: "Madalin Stunt Cars 2", icon: "🏎️", url: "https://ohgp.onrender.com/offline/madalinstuntcars2.html" },
+  { name: "Melon Playground", icon: "🍉", url: "https://ohgp.onrender.com/offline/melonplayground.html" },
+  { name: "Merge Round Racers", icon: "🔄", url: "https://ohgp.onrender.com/offline/mergeroundracers.html" },
+  { name: "Minesweeper", icon: "💣", url: "https://ohgp.onrender.com/offline/minesweeper.html" },
+  { name: "Monkey Mart", icon: "🐒", url: "https://ohgp.onrender.com/offline/monkeymart.htm" },
+  { name: "Monster Tracks", icon: "👣", url: "https://ohgp.onrender.com/offline/monstertracks.html" },
+  { name: "Moto X3M", icon: "🏍️", url: "https://ohgp.onrender.com/offline/motox3m.htm" },
+  { name: "Moto X3M 2", icon: "🏍️", url: "https://ohgp.onrender.com/offline/motox3m2.html" },
+  { name: "Moto X3M 3", icon: "🏍️", url: "https://ohgp.onrender.com/offline/motox3m3.html" },
+  { name: "Moto X3M Pool Party", icon: "🏊", url: "https://ohgp.onrender.com/offline/motox3mpoolparty.html" },
+  { name: "Moto X3M Spooky Land", icon: "👻", url: "https://ohgp.onrender.com/offline/motox3mspookyland.html" },
+  { name: "Moto X3M Winter", icon: "❄️", url: "https://ohgp.onrender.com/offline/motox3mwinter.html" },
+  { name: "Noob Miner", icon: "⛏️", url: "https://ohgp.onrender.com/offline/noobminer.html" },
+  { name: "Opposite Day", icon: "🔄", url: "https://ohgp.onrender.com/offline/oppositeday.html" },
+  { name: "OVO", icon: "🥚", url: "https://ohgp.onrender.com/offline/ovo.html" },
+  { name: "OVO 2", icon: "🥚", url: "https://ohgp.onrender.com/offline/ovo2.html" },
+  { name: "OVO 3 Dimensions", icon: "📐", url: "https://ohgp.onrender.com/offline/ovo3dimensions.html" },
+  { name: "Pac-Man", icon: "👻", url: "https://ohgp.onrender.com/offline/pacman.html" },
+  { name: "Papa's Bakeria", icon: "🥧", url: "https://ohgp.onrender.com/offline/papasbakeria.html" },
+  { name: "Papa's Burgeria", icon: "🍔", url: "https://ohgp.onrender.com/offline/papasburgeria.html" },
+  { name: "Papa's Cheeseria", icon: "🧀", url: "https://ohgp.onrender.com/offline/papascheeseria.html" },
+  { name: "Papa's Cupcakeria", icon: "🧁", url: "https://ohgp.onrender.com/offline/papascupcakeria.html" },
+  { name: "Papa's Donuteria", icon: "🍩", url: "https://ohgp.onrender.com/offline/papasdonuteria.html" },
+  { name: "Papa's Freezeria", icon: "🍦", url: "https://ohgp.onrender.com/offline/papasfreezeria.html" },
+  { name: "Papa's Hot Doggeria", icon: "🌭", url: "https://ohgp.onrender.com/offline/papashotdoggeria.html" },
+  { name: "Papa's Pancakeria", icon: "🥞", url: "https://ohgp.onrender.com/offline/papaspancakeria.html" },
+  { name: "Papa's Pastaria", icon: "🍝", url: "https://ohgp.onrender.com/offline/papaspastaria.html" },
+  { name: "Papa's Pizzeria", icon: "🍕", url: "https://ohgp.onrender.com/offline/papaspizzeria.html" },
+  { name: "Papa's Scooperia", icon: "🍦", url: "https://ohgp.onrender.com/offline/papasscooperia.html" },
+  { name: "Papa's Sushiria", icon: "🍣", url: "https://ohgp.onrender.com/offline/papassushiria.html" },
+  { name: "Papa's Taco Mia", icon: "🌮", url: "https://ohgp.onrender.com/offline/papastacomia.html" },
+  { name: "Papa's Wingeria", icon: "🍗", url: "https://ohgp.onrender.com/offline/papaswingeria.html" },
+  { name: "Paper.io 2", icon: "📄", url: "https://ohgp.onrender.com/offline/paperio2.htm" },
+  { name: "Parking Fury", icon: "🅿️", url: "https://ohgp.onrender.com/offline/parkingfury.html" },
+  { name: "Parking Fury 2", icon: "🚗", url: "https://ohgp.onrender.com/offline/parkingfury2.html" },
+  { name: "Parking Fury 3", icon: "🚙", url: "https://ohgp.onrender.com/offline/parkingfury3.html" },
+  { name: "Picos School", icon: "🏫", url: "https://ohgp.onrender.com/offline/picosschool.html" },
+  { name: "Ping Pong Chaos", icon: "🏓", url: "https://ohgp.onrender.com/offline/pingpongchaos.html" },
+  { name: "Pixel Speedrun", icon: "👾", url: "https://ohgp.onrender.com/offline/pixelspeedrun.html" },
+  { name: "Plants vs Zombies", icon: "🌱", url: "https://ohgp.onrender.com/offline/plantsvszombies.html" },
+  { name: "Plonky", icon: "🪶", url: "https://ohgp.onrender.com/offline/plonky.html" },
+  { name: "Polytrack", icon: "🏁", url: "https://ohgp.onrender.com/offline/polytrack.html" },
+  { name: "Poor Bunny", icon: "🐰", url: "https://ohgp.onrender.com/offline/poorbunny.html" },
+  { name: "Pou", icon: "🦠", url: "https://ohgp.onrender.com/offline/pou.html" },
+  { name: "Ragdoll Archers", icon: "🏹", url: "https://ohgp.onrender.com/offline/ragdollarchers.htm" },
+  { name: "Ragdoll Hit", icon: "💥", url: "https://ohgp.onrender.com/offline/ragdollhit.html" },
+  { name: "Ragdoll Soccer", icon: "⚽", url: "https://ohgp.onrender.com/offline/ragdollsoccer.html" },
+  { name: "Red Ball 4 Vol 1", icon: "🔴", url: "https://ohgp.onrender.com/offline/redball4vol1.html" },
+  { name: "Red Ball 4 Vol 2", icon: "🟠", url: "https://ohgp.onrender.com/offline/redball4vol2.html" },
+  { name: "Red Ball 4 Vol 3", icon: "🔴", url: "https://ohgp.onrender.com/offline/redball4vol3.html" },
+  { name: "Retro Bowl", icon: "🏈", url: "https://ohgp.onrender.com/offline/retrobowl.html" },
+  { name: "Retro Bowl College", icon: "🎓", url: "https://ohgp.onrender.com/offline/retrobowlcollege.html" },
+  { name: "Retro Highway", icon: "🛣️", url: "https://ohgp.onrender.com/offline/retrohighway.html" },
+  { name: "Retro Ping Pong", icon: "🏓", url: "https://ohgp.onrender.com/offline/retropingpong.html" },
+  { name: "Riddle School", icon: "🤔", url: "https://ohgp.onrender.com/offline/riddleschool.html" },
+  { name: "Riddle School 2", icon: "🧩", url: "https://ohgp.onrender.com/offline/riddleschool2.html" },
+  { name: "Riddle School 3", icon: "🔍", url: "https://ohgp.onrender.com/offline/riddleschool3.html" },
+  { name: "Riddle School 4", icon: "📚", url: "https://ohgp.onrender.com/offline/riddleschool4.html" },
+  { name: "Riddle School 5", icon: "🎓", url: "https://ohgp.onrender.com/offline/riddleschool5.html" },
+  { name: "Riddle Transfer", icon: "🚪", url: "https://ohgp.onrender.com/offline/riddletransfer.html" },
+  { name: "Riddle Transfer 2", icon: "🔑", url: "https://ohgp.onrender.com/offline/riddletransfer2.html" },
+  { name: "Rocket Soccer Derby", icon: "🚀", url: "https://ohgp.onrender.com/offline/rocketsoccerderby.html" },
+  { name: "Rooftop Snipers", icon: "🔫", url: "https://ohgp.onrender.com/offline/rooftopsnipers.htm" },
+  { name: "Rooftop Snipers 2", icon: "🏢", url: "https://ohgp.onrender.com/offline/rooftopsnipers2.html" },
+  { name: "Run", icon: "🏃", url: "https://ohgp.onrender.com/offline/run.html" },
+  { name: "Run 2", icon: "🏃‍♂️", url: "https://ohgp.onrender.com/offline/run2.html" },
+  { name: "Run 3", icon: "🏃‍♀️", url: "https://ohgp.onrender.com/offline/run3.html" },
+  { name: "Sand Game", icon: "🏖️", url: "https://ohgp.onrender.com/offline/sandgame.html" },
+  { name: "Short Life", icon: "💀", url: "https://ohgp.onrender.com/offline/shortlife.html" },
+  { name: "Slope", icon: "📐", url: "https://ohgp.onrender.com/offline/slope.html" },
+  { name: "Slope 2 Player", icon: "🎮", url: "https://ohgp.onrender.com/offline/slope2player.html" },
+  { name: "Slope 3", icon: "🔺", url: "https://ohgp.onrender.com/offline/slope3.html" },
+  { name: "Slow Roads", icon: "🛣️", url: "https://ohgp.onrender.com/offline/slowroads.html" },
+  { name: "SM63", icon: "⭐", url: "https://ohgp.onrender.com/offline/sm63.html" },
+  { name: "SM64", icon: "🌟", url: "https://ohgp.onrender.com/offline/sm64.html" },
+  { name: "Snowball.io", icon: "⛄", url: "https://ohgp.onrender.com/offline/snowballio.html" },
+  { name: "Snow Rider", icon: "❄️", url: "https://ohgp.onrender.com/offline/snowrider.htm" },
+  { name: "Snow Road", icon: "🌨️", url: "https://ohgp.onrender.com/offline/snowroad.htm" },
+  { name: "Soccer Bros", icon: "⚽", url: "https://ohgp.onrender.com/offline/soccerbros.html" },
+  { name: "Soccer Random", icon: "🎲", url: "https://ohgp.onrender.com/offline/soccerrandom.htm" },
+  { name: "Spacebar Clicker", icon: "⌨️", url: "https://ohgp.onrender.com/offline/spacebarclicker.html" },
+  { name: "Space Is Key", icon: "🚀", url: "https://ohgp.onrender.com/offline/spaceiskey.html" },
+  { name: "Space Is Key 2", icon: "🌌", url: "https://ohgp.onrender.com/offline/spaceiskey2.html" },
+  { name: "Space Waves", icon: "🌊", url: "https://ohgp.onrender.com/offline/spacewaves.html" },
+  { name: "Speed Stars", icon: "⭐", url: "https://ohgp.onrender.com/offline/speedstars.html" },
+  { name: "Sprunki", icon: "🎵", url: "https://ohgp.onrender.com/offline/sprunki.html" },
+  { name: "Stack", icon: "📚", url: "https://ohgp.onrender.com/offline/stack.html" },
+  { name: "Stacktris", icon: "🧩", url: "https://ohgp.onrender.com/offline/stacktris.html" },
+  { name: "State.io", icon: "🌎", url: "https://ohgp.onrender.com/offline/stateio.html" },
+  { name: "Stick Archers Battle", icon: "🏹", url: "https://ohgp.onrender.com/offline/stickarchersbattle.html" },
+  { name: "Stick Fighter", icon: "🥋", url: "https://ohgp.onrender.com/offline/stickfighter.html" },
+  { name: "Stickman Hook", icon: "🪝", url: "https://ohgp.onrender.com/offline/stickmanhook.html" },
+  { name: "Stick Merge", icon: "🔄", url: "https://ohgp.onrender.com/offline/stickmerge.html" },
+  { name: "Subway Surfers Beijing", icon: "🚇", url: "https://ohgp.onrender.com/offline/subwaysurfersbeijing.html" },
+  { name: "Subway Surfers Havana", icon: "🌴", url: "https://ohgp.onrender.com/offline/subwaysurfershavana.html" },
+  { name: "Subway Surfers San Francisco", icon: "🌉", url: "https://ohgp.onrender.com/offline/subwaysurferssanfrancisco.html" },
+  { name: "Super Bike the Champion", icon: "🏍️", url: "https://ohgp.onrender.com/offline/superbikethechampion.html" },
+  { name: "Superhot", icon: "🔥", url: "https://ohgp.onrender.com/offline/superhot.html" },
+  { name: "Super Liquid Soccer", icon: "💧", url: "https://ohgp.onrender.com/offline/superliquidsoccer.html" },
+  { name: "Super Star Car", icon: "⭐", url: "https://ohgp.onrender.com/offline/superstarcar.html" },
+  { name: "Table Tennis World Tour", icon: "🏓", url: "https://ohgp.onrender.com/offline/tabletennisworldtour.html" },
+  { name: "Tag", icon: "🏷️", url: "https://ohgp.onrender.com/offline/tag.html" },
+  { name: "Tap Road", icon: "👆", url: "https://ohgp.onrender.com/offline/taproad.html" },
+  { name: "Temple of Boom", icon: "🏛️", url: "https://ohgp.onrender.com/offline/templeofboom.html" },
+  { name: "Temple Run 2", icon: "🏃", url: "https://ohgp.onrender.com/offline/templerun2.htm" },
+  { name: "Territorial.io", icon: "🗺️", url: "https://ohgp.onrender.com/offline/territorialio.html" },
+  { name: "The Impossible Quiz", icon: "❓", url: "https://ohgp.onrender.com/offline/theimpossiblequiz.html" },
+  { name: "The Impossible Quiz 2", icon: "⁉️", url: "https://ohgp.onrender.com/offline/theimpossiblequiz2.html" },
+  { name: "There Is No Game", icon: "🚫", url: "https://ohgp.onrender.com/offline/thereisnog.html" },
+  { name: "They Are Coming", icon: "🧟", url: "https://ohgp.onrender.com/offline/theyarecoming.html" },
+  { name: "This Is the Only Level", icon: "1️⃣", url: "https://ohgp.onrender.com/offline/thisistheonlylevel.html" },
+  { name: "This Is the Only Level Too", icon: "2️⃣", url: "https://ohgp.onrender.com/offline/thisistheonlyleveltoo.html" },
+  { name: "Time Shooter 2", icon: "⏰", url: "https://ohgp.onrender.com/offline/timeshooter2.html" },
+  { name: "Time Shooter 3", icon: "⌛", url: "https://ohgp.onrender.com/offline/timeshooter3.htm" },
+  { name: "Tiny Fishing", icon: "🎣", url: "https://ohgp.onrender.com/offline/tinyfishing.html" },
+  { name: "Tomb of the Mask", icon: "🗿", url: "https://ohgp.onrender.com/offline/tombofthemask.htm" },
+  { name: "Trap the Cat", icon: "🐱", url: "https://ohgp.onrender.com/offline/trapthecat.html" },
+  { name: "Trivia Crack", icon: "🧠", url: "https://ohgp.onrender.com/offline/triviacrack.html" },
+  { name: "Tube Jumpers", icon: "🛸", url: "https://ohgp.onrender.com/offline/tubejumpers.html" },
+  { name: "Tunnel Rush", icon: "🚇", url: "https://ohgp.onrender.com/offline/tunnelrush.html" },
+  { name: "Unicycle Hero", icon: "🚲", url: "https://ohgp.onrender.com/offline/unicyclehero.html" },
+  { name: "Vex 4", icon: "4️⃣", url: "https://ohgp.onrender.com/offline/vex4.html" },
+  { name: "Vex 5", icon: "5️⃣", url: "https://ohgp.onrender.com/offline/vex5.html" },
+  { name: "Vex 6", icon: "6️⃣", url: "https://ohgp.onrender.com/offline/vex6.htm" },
+  { name: "Vex 7", icon: "7️⃣", url: "https://ohgp.onrender.com/offline/vex7.htm" },
+  { name: "Vex 8", icon: "8️⃣", url: "https://ohgp.onrender.com/offline/vex8.htm" },
+  { name: "Vex X3M", icon: "🏍️", url: "https://ohgp.onrender.com/offline/vexx3m.html" },
+  { name: "Vex X3M 2", icon: "🏍️", url: "https://ohgp.onrender.com/offline/vexx3m2.html" },
+  { name: "Volley Random", icon: "🏐", url: "https://ohgp.onrender.com/offline/volleyrandom.html" },
+  { name: "War the Knights", icon: "⚔️", url: "https://ohgp.onrender.com/offline/wartheknights.html" },
+  { name: "We Become What We Behold", icon: "👁️", url: "https://ohgp.onrender.com/offline/webecomewhatwebehold.html" },
+  { name: "Wheelie Bike", icon: "🚲", url: "https://ohgp.onrender.com/offline/wheeliebike.html" },
+  { name: "Wheely", icon: "🚗", url: "https://ohgp.onrender.com/offline/wheely.html" },
+  { name: "Wheely 2", icon: "🚙", url: "https://ohgp.onrender.com/offline/wheely2.html" },
+  { name: "Wheely 3", icon: "🚐", url: "https://ohgp.onrender.com/offline/wheely3.html" },
+  { name: "Wheely 4", icon: "🚚", url: "https://ohgp.onrender.com/offline/wheely4.html" },
+  { name: "Wheely 5", icon: "🚛", url: "https://ohgp.onrender.com/offline/wheely5.html" },
+  { name: "Wheely 6", icon: "🚌", url: "https://ohgp.onrender.com/offline/wheely6.html" },
+  { name: "Wheely 7", icon: "🚎", url: "https://ohgp.onrender.com/offline/wheely7.html" },
+  { name: "Wheely 8", icon: "🏎️", url: "https://ohgp.onrender.com/offline/wheely8.html" },
+  { name: "Wordle Unlimited", icon: "📝", url: "https://ohgp.onrender.com/offline/wordleunlimited.html" },
+  { name: "World's Hardest Game", icon: "😫", url: "https://ohgp.onrender.com/offline/worldshardestgame.html" },
+  { name: "World's Hardest Game 2", icon: "😩", url: "https://ohgp.onrender.com/offline/worldshardestgame2.html" },
+  { name: "World's Hardest Game 3", icon: "😖", url: "https://ohgp.onrender.com/offline/worldshardestgame3.html" },
+  { name: "Wrestle Bros", icon: "🤼", url: "https://ohgp.onrender.com/offline/wrestlebros.html" },
+  { name: "Zombie Rush", icon: "🧟", url: "https://ohgp.onrender.com/offline/zombierush.html" }
 ];
   
   const DEFAULT_ICON="🎮";function loadRecentGames(){const e=localStorage.getItem("arcade_fun_recent_games");if(!e)return[];try{const t=JSON.parse(e);if(Array.isArray(t))return t.slice(0,12)}catch(e){console.warn(e)}return[]}function saveRecentGames(e){localStorage.setItem("arcade_fun_recent_games",JSON.stringify(e.slice(0,12)))}function addGameToRecent(e){let t=loadRecentGames();t=t.filter(t=>t.name!==e.name),t.unshift({name:e.name,icon:e.icon||"🎮",url:e.url}),t.length>10&&t.pop(),saveRecentGames(t),renderRecentList()}function clearRecentHistory(){saveRecentGames([]),renderRecentList()}function renderRecentList(){const e=document.getElementById("recentListContainer");if(!e)return;const t=loadRecentGames();0!==t.length?(e.innerHTML=t.map(e=>`\n    <a href="#" class="recent-tile" data-game-name="${escapeHtml(e.name)}" data-game-icon="${escapeHtml(e.icon)}" data-game-url="${escapeHtml(e.url)}">\n      <span>${e.icon||"🎮"}</span>\n      <span>${escapeHtml(e.name)}</span>\n    </a>\n  `).join(""),document.querySelectorAll(".recent-tile").forEach(e=>{e.addEventListener("click",t=>{t.preventDefault();const n=e.getAttribute("data-game-name"),a=e.getAttribute("data-game-icon"),o=e.getAttribute("data-game-url");n&&handleGameClick({name:n,icon:a,url:o})})})):e.innerHTML='<div class="empty-recent">🎈 no recent games! click some tiles! 🎈</div>'}function escapeHtml(e){return e?e.replace(/[&<>]/g,function(e){return"&"===e?"&amp;":"<"===e?"&lt;":">"===e?"&gt;":e}):""}function handleGameClick(e){if(addGameToRecent(e),e.url&&"#"!==e.url)window.open(e.url,"_blank"),showArcadeToast(`🎮 LAUNCHING: ${e.name} in new tab! 🎮`);else{const t=`https://example.com/game/${e.name.toLowerCase().replace(/\s+/g,"-")}`;window.open(t,"_blank"),showArcadeToast(`🎮 LAUNCHING: ${e.name} in new tab! 🎮`)}renderRecentList()}let toastTimeout;function showArcadeToast(e){let t=document.getElementById("arcade-toast");t&&t.remove();const n=document.createElement("div");n.id="arcade-toast",n.innerText=e,n.style.position="fixed",n.style.bottom="30px",n.style.left="50%",n.style.transform="translateX(-50%)",n.style.backgroundColor="#f3c26b",n.style.color="#2b1635",n.style.fontWeight="bold",n.style.padding="12px 28px",n.style.borderRadius="60px",n.style.fontFamily="monospace",n.style.fontSize="1.3rem",n.style.zIndex="9999",n.style.border="3px solid #ff8c42",n.style.boxShadow="0 8px 0 #aa6f2c",n.style.backdropFilter="blur(6px)",document.body.appendChild(n),toastTimeout&&clearTimeout(toastTimeout),toastTimeout=setTimeout(()=>{n&&n.remove()},1800)}function renderGameGrid(e=""){const t=document.getElementById("gamesContainer");if(!t)return;const n=e.toLowerCase().trim();let a=GAMES_CATALOG;""!==n&&(a=GAMES_CATALOG.filter(e=>e.name.toLowerCase().includes(n))),0!==a.length?(t.innerHTML=a.map(e=>`\n    <a href="#" class="game-tile" data-game='${JSON.stringify(e)}'>\n      <div class="game-icon">${e.icon||"🎮"}</div>\n      <div class="game-name">${escapeHtml(e.name)}</div>\n    </a>\n  `).join(""),document.querySelectorAll(".game-tile").forEach(e=>{e.addEventListener("click",t=>{t.preventDefault();const n=e.getAttribute("data-game");if(n)try{handleGameClick(JSON.parse(n))}catch(e){console.warn(e)}})})):t.innerHTML="<div style=\"grid-column:1/-1; text-align:center; background:#472e5e; padding:2rem; border-radius:60px; color:#ffdd99;\">😭 NO GAMES FOUND — try 'football' or 'candy' 😭</div>"}function pickRandomGame(){if(0===GAMES_CATALOG.length)return;const e=Math.floor(Math.random()*GAMES_CATALOG.length),t=GAMES_CATALOG[e];handleGameClick(t),showArcadeToast(`🎲 RANDOM: ${t.name} opening in new tab! 🎲`)}function initSearch(){const e=document.getElementById("searchInput");e&&e.addEventListener("input",e=>{renderGameGrid(e.target.value)})}function initClearRecent(){const e=document.getElementById("clearRecentBtn");e&&e.addEventListener("click",()=>{clearRecentHistory(),showArcadeToast("🧹 recent history wiped clean!")})}function initRandomBtn(){const e=document.getElementById("randomGameBtn");e&&e.addEventListener("click",()=>{pickRandomGame()})}function init(){renderGameGrid(""),initSearch(),initClearRecent(),initRandomBtn(),renderRecentList()}document.addEventListener("DOMContentLoaded",init);
+// Add this code to randomize tile display and add "See More..." pagination
+
+let currentDisplayCount = 48; // Initial number of games to show
+const GAMES_PER_PAGE = 48; // Number of games to load each time "See More" is clicked
+
+// Shuffle array function (Fisher-Yates)
+function shuffleArray(array) {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+}
+
+// Store shuffled games globally
+let shuffledGames = [];
+
+// Initialize shuffled games
+function initShuffledGames() {
+  shuffledGames = shuffleArray(GAMES_CATALOG);
+  currentDisplayCount = GAMES_PER_PAGE;
+}
+
+// Modified renderGameGrid with shuffle and "See More" button
+const originalRenderGameGrid = renderGameGrid;
+window.renderGameGrid = function(filterText = "") {
+  const container = document.getElementById("gamesContainer");
+  if (!container) return;
+  
+  const lowerFilter = filterText.toLowerCase().trim();
+  let filteredGames = lowerFilter === "" ? shuffledGames : GAMES_CATALOG.filter(game => game.name.toLowerCase().includes(lowerFilter));
+  
+  if (lowerFilter !== "" && filteredGames.length === 0) {
+    container.innerHTML = `<div style="grid-column:1/-1; text-align:center; background:#472e5e; padding:2rem; border-radius:60px; color:#ffdd99;">😭 NO GAMES FOUND — try 'football' or 'candy' 😭</div>`;
+    return;
+  }
+  
+  // If searching, show all results without pagination
+  if (lowerFilter !== "") {
+    container.innerHTML = filteredGames.map(game => `
+      <a href="#" class="game-tile" data-game='${JSON.stringify(game)}'>
+        <div class="game-icon">${game.icon || DEFAULT_ICON}</div>
+        <div class="game-name">${escapeHtml(game.name)}</div>
+      </a>
+    `).join("");
+    
+    attachGameTileEvents();
+    return;
+  }
+  
+  // Normal view with pagination (shuffled)
+  const gamesToShow = filteredGames.slice(0, currentDisplayCount);
+  const hasMore = currentDisplayCount < filteredGames.length;
+  
+  let gamesHtml = gamesToShow.map(game => `
+    <a href="#" class="game-tile" data-game='${JSON.stringify(game)}'>
+      <div class="game-icon">${game.icon || DEFAULT_ICON}</div>
+      <div class="game-name">${escapeHtml(game.name)}</div>
+    </a>
+  `).join("");
+  
+  if (hasMore) {
+    gamesHtml += `<div class="see-more-container" style="grid-column:1/-1; display:flex; justify-content:center; margin-top:1rem;">
+      <button id="seeMoreBtn" class="random-btn" style="background:#6c3c9e; font-size:1.2rem; padding:0.8rem 2rem;">👇 SEE MORE... (${currentDisplayCount}/${filteredGames.length}) 👇</button>
+    </div>`;
+  }
+  
+  container.innerHTML = gamesHtml;
+  attachGameTileEvents();
+  
+  if (hasMore) {
+    const seeMoreBtn = document.getElementById("seeMoreBtn");
+    if (seeMoreBtn) {
+      seeMoreBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentDisplayCount += GAMES_PER_PAGE;
+        window.renderGameGrid("");
+      });
+    }
+  }
+};
+
+// Helper function to attach game tile events
+function attachGameTileEvents() {
+  document.querySelectorAll('.game-tile').forEach(tile => {
+    tile.addEventListener('click', (e) => {
+      e.preventDefault();
+      const rawData = tile.getAttribute('data-game');
+      if (rawData) {
+        try {
+          handleGameClick(JSON.parse(rawData));
+        } catch(err) {
+          console.warn(err);
+        }
+      }
+    });
+  });
+}
+
+// Override init function to include shuffle initialization
+const originalInit = init;
+window.init = function() {
+  initShuffledGames();
+  renderGameGrid("");
+  initSearch();
+  initClearRecent();
+  initRandomBtn();
+  renderRecentList();
+};
+
+// Re-run init to apply changes
+if (document.readyState === "loading") {
+  document.removeEventListener("DOMContentLoaded", originalInit);
+  document.addEventListener("DOMContentLoaded", window.init);
+} else {
+  window.init();
+}
 </script>
 </body>
 </html>
