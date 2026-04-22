@@ -344,8 +344,265 @@
   { name: "Zombie Rush", icon: "🧟", url: "https://ohgp.onrender.com/offline/zombierush.html" }
 ];
   
-  const DEFAULT_ICON="🎮";function loadRecentGames(){const e=localStorage.getItem("arcade_fun_recent_games");if(!e)return[];try{const t=JSON.parse(e);if(Array.isArray(t))return t.slice(0,12)}catch(e){console.warn(e)}return[]}function saveRecentGames(e){localStorage.setItem("arcade_fun_recent_games",JSON.stringify(e.slice(0,12)))}function addGameToRecent(e){let t=loadRecentGames();t=t.filter(t=>t.name!==e.name),t.unshift({name:e.name,icon:e.icon||"🎮",url:e.url}),t.length>10&&t.pop(),saveRecentGames(t),renderRecentList()}function clearRecentHistory(){saveRecentGames([]),renderRecentList()}function renderRecentList(){const e=document.getElementById("recentListContainer");if(!e)return;const t=loadRecentGames();0!==t.length?(e.innerHTML=t.map(e=>`\n    <a href="#" class="recent-tile" data-game-name="${escapeHtml(e.name)}" data-game-icon="${escapeHtml(e.icon)}" data-game-url="${escapeHtml(e.url)}">\n      <span>${e.icon||"🎮"}</span>\n      <span>${escapeHtml(e.name)}</span>\n    </a>\n  `).join(""),document.querySelectorAll(".recent-tile").forEach(e=>{e.addEventListener("click",t=>{t.preventDefault();const n=e.getAttribute("data-game-name"),a=e.getAttribute("data-game-icon"),o=e.getAttribute("data-game-url");n&&handleGameClick({name:n,icon:a,url:o})})})):e.innerHTML='<div class="empty-recent">🎈 no recent games! click some tiles! 🎈</div>'}function escapeHtml(e){return e?e.replace(/[&<>]/g,function(e){return"&"===e?"&amp;":"<"===e?"&lt;":">"===e?"&gt;":e}):""}function handleGameClick(e){if(addGameToRecent(e),e.url&&"#"!==e.url)window.open(e.url,"_blank"),showArcadeToast(`🎮 LAUNCHING: ${e.name} in new tab! 🎮`);else{const t=`https://example.com/game/${e.name.toLowerCase().replace(/\s+/g,"-")}`;window.open(t,"_blank"),showArcadeToast(`🎮 LAUNCHING: ${e.name} in new tab! 🎮`)}renderRecentList()}let toastTimeout;function showArcadeToast(e){let t=document.getElementById("arcade-toast");t&&t.remove();const n=document.createElement("div");n.id="arcade-toast",n.innerText=e,n.style.position="fixed",n.style.bottom="30px",n.style.left="50%",n.style.transform="translateX(-50%)",n.style.backgroundColor="#f3c26b",n.style.color="#2b1635",n.style.fontWeight="bold",n.style.padding="12px 28px",n.style.borderRadius="60px",n.style.fontFamily="monospace",n.style.fontSize="1.3rem",n.style.zIndex="9999",n.style.border="3px solid #ff8c42",n.style.boxShadow="0 8px 0 #aa6f2c",n.style.backdropFilter="blur(6px)",document.body.appendChild(n),toastTimeout&&clearTimeout(toastTimeout),toastTimeout=setTimeout(()=>{n&&n.remove()},1800)}function renderGameGrid(e=""){const t=document.getElementById("gamesContainer");if(!t)return;const n=e.toLowerCase().trim();let a=GAMES_CATALOG;""!==n&&(a=GAMES_CATALOG.filter(e=>e.name.toLowerCase().includes(n))),0!==a.length?(t.innerHTML=a.map(e=>`\n    <a href="#" class="game-tile" data-game='${JSON.stringify(e)}'>\n      <div class="game-icon">${e.icon||"🎮"}</div>\n      <div class="game-name">${escapeHtml(e.name)}</div>\n    </a>\n  `).join(""),document.querySelectorAll(".game-tile").forEach(e=>{e.addEventListener("click",t=>{t.preventDefault();const n=e.getAttribute("data-game");if(n)try{handleGameClick(JSON.parse(n))}catch(e){console.warn(e)}})})):t.innerHTML="<div style=\"grid-column:1/-1; text-align:center; background:#472e5e; padding:2rem; border-radius:60px; color:#ffdd99;\">😭 NO GAMES FOUND — try 'football' or 'candy' 😭</div>"}function pickRandomGame(){if(0===GAMES_CATALOG.length)return;const e=Math.floor(Math.random()*GAMES_CATALOG.length),t=GAMES_CATALOG[e];handleGameClick(t),showArcadeToast(`🎲 RANDOM: ${t.name} opening in new tab! 🎲`)}function initSearch(){const e=document.getElementById("searchInput");e&&e.addEventListener("input",e=>{renderGameGrid(e.target.value)})}function initClearRecent(){const e=document.getElementById("clearRecentBtn");e&&e.addEventListener("click",()=>{clearRecentHistory(),showArcadeToast("🧹 recent history wiped clean!")})}function initRandomBtn(){const e=document.getElementById("randomGameBtn");e&&e.addEventListener("click",()=>{pickRandomGame()})}function init(){renderGameGrid(""),initSearch(),initClearRecent(),initRandomBtn(),renderRecentList()}document.addEventListener("DOMContentLoaded",init);
+const DEFAULT_ICON = "🎮";
 
+// PAGINATION & RANDOMIZATION VARIABLES
+let currentDisplayCount = 60;
+const GAMES_PER_PAGE = 60;
+let shuffledGames = [];
+
+// Shuffle array function (Fisher-Yates)
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+// Initialize shuffled games
+function initShuffledGames() {
+  shuffledGames = shuffleArray([...GAMES_CATALOG]);
+}
+
+function loadRecentGames() {
+  const stored = localStorage.getItem("arcade_fun_recent_games");
+  if (!stored) return [];
+  try {
+    const parsed = JSON.parse(stored);
+    if (Array.isArray(parsed)) return parsed.slice(0, 12);
+  } catch (e) {
+    console.warn(e);
+  }
+  return [];
+}
+
+function saveRecentGames(recentArray) {
+  localStorage.setItem("arcade_fun_recent_games", JSON.stringify(recentArray.slice(0, 12)));
+}
+
+function addGameToRecent(game) {
+  let recent = loadRecentGames();
+  recent = recent.filter(g => g.name !== game.name);
+  recent.unshift({ name: game.name, icon: game.icon || DEFAULT_ICON, url: game.url });
+  if (recent.length > 10) recent.pop();
+  saveRecentGames(recent);
+  renderRecentList();
+}
+
+function clearRecentHistory() {
+  saveRecentGames([]);
+  renderRecentList();
+}
+
+function renderRecentList() {
+  const recentContainer = document.getElementById("recentListContainer");
+  if (!recentContainer) return;
+  const recentGames = loadRecentGames();
+  if (recentGames.length === 0) {
+    recentContainer.innerHTML = '<div class="empty-recent">🎈 no recent games! click some tiles! 🎈</div>';
+    return;
+  }
+  recentContainer.innerHTML = recentGames.map(game => `
+    <a href="#" class="recent-tile" data-game-name="${escapeHtml(game.name)}" data-game-icon="${escapeHtml(game.icon)}" data-game-url="${escapeHtml(game.url)}">
+      <span>${game.icon || DEFAULT_ICON}</span>
+      <span>${escapeHtml(game.name)}</span>
+    </a>
+  `).join("");
+
+  document.querySelectorAll(".recent-tile").forEach(tile => {
+    tile.addEventListener("click", e => {
+      e.preventDefault();
+      const name = tile.getAttribute("data-game-name");
+      const icon = tile.getAttribute("data-game-icon");
+      const url = tile.getAttribute("data-game-url");
+      if (name) handleGameClick({ name: name, icon: icon, url: url });
+    });
+  });
+}
+
+function escapeHtml(str) {
+  if (!str) return '';
+  return str.replace(/[&<>]/g, function(m) {
+    if (m === '&') return '&amp;';
+    if (m === '<') return '&lt;';
+    if (m === '>') return '&gt;';
+    return m;
+  });
+}
+
+function handleGameClick(game) {
+  addGameToRecent(game);
+  if (game.url && game.url !== '#') {
+    window.open(game.url, "_blank");
+    showArcadeToast(`🎮 LAUNCHING: ${game.name} in new tab! 🎮`);
+  } else {
+    const fallbackUrl = `https://example.com/game/${game.name.toLowerCase().replace(/\s+/g, "-")}`;
+    window.open(fallbackUrl, "_blank");
+    showArcadeToast(`🎮 LAUNCHING: ${game.name} in new tab! 🎮`);
+  }
+  renderRecentList();
+}
+
+let toastTimeout;
+function showArcadeToast(msg) {
+  let existingToast = document.getElementById("arcade-toast");
+  if (existingToast) existingToast.remove();
+  const toast = document.createElement("div");
+  toast.id = "arcade-toast";
+  toast.innerText = msg;
+  toast.style.position = "fixed";
+  toast.style.bottom = "30px";
+  toast.style.left = "50%";
+  toast.style.transform = "translateX(-50%)";
+  toast.style.backgroundColor = "#f3c26b";
+  toast.style.color = "#2b1635";
+  toast.style.fontWeight = "bold";
+  toast.style.padding = "12px 28px";
+  toast.style.borderRadius = "60px";
+  toast.style.fontFamily = "monospace";
+  toast.style.fontSize = "1.3rem";
+  toast.style.zIndex = "9999";
+  toast.style.border = "3px solid #ff8c42";
+  toast.style.boxShadow = "0 8px 0 #aa6f2c";
+  toast.style.backdropFilter = "blur(6px)";
+  document.body.appendChild(toast);
+  if (toastTimeout) clearTimeout(toastTimeout);
+  toastTimeout = setTimeout(() => {
+    if (toast) toast.remove();
+  }, 1800);
+}
+
+function renderGameGrid(filterText = "") {
+  const container = document.getElementById("gamesContainer");
+  if (!container) return;
+
+  const lowerFilter = filterText.toLowerCase().trim();
+  let filteredGames = lowerFilter === "" ? shuffledGames : GAMES_CATALOG.filter(game => game.name.toLowerCase().includes(lowerFilter));
+
+  if (filteredGames.length === 0) {
+    container.innerHTML = `<div style="grid-column:1/-1; text-align:center; background:#472e5e; padding:2rem; border-radius:60px; color:#ffdd99;">😭 NO GAMES FOUND — try something else 😭</div>`;
+    return;
+  }
+
+  // If searching, show all results without pagination
+  if (lowerFilter !== "") {
+    container.innerHTML = filteredGames.map(game => `
+      <a href="#" class="game-tile" data-game='${JSON.stringify(game)}'>
+        <div class="game-icon">${game.icon || DEFAULT_ICON}</div>
+        <div class="game-name">${escapeHtml(game.name)}</div>
+      </a>
+    `).join("");
+    
+    document.querySelectorAll('.game-tile').forEach(tile => {
+      tile.addEventListener('click', (e) => {
+        e.preventDefault();
+        const rawData = tile.getAttribute('data-game');
+        if (rawData) {
+          try {
+            handleGameClick(JSON.parse(rawData));
+          } catch (err) {
+            console.warn(err);
+          }
+        }
+      });
+    });
+    return;
+  }
+
+  // Normal view with pagination (shuffled)
+  const gamesToShow = filteredGames.slice(0, currentDisplayCount);
+  const hasMore = currentDisplayCount < filteredGames.length;
+
+  let gamesHtml = gamesToShow.map(game => `
+    <a href="#" class="game-tile" data-game='${JSON.stringify(game)}'>
+      <div class="game-icon">${game.icon || DEFAULT_ICON}</div>
+      <div class="game-name">${escapeHtml(game.name)}</div>
+    </a>
+  `).join("");
+
+  if (hasMore) {
+    gamesHtml += `<div class="see-more-container" style="grid-column:1/-1; display:flex; justify-content:center; margin:1.5rem 0 0.5rem;">
+      <button id="seeMoreBtn" class="random-btn" style="background:#6c3c9e; font-size:1.2rem; padding:0.8rem 2rem; cursor:pointer;">🎮 SEE MORE GAMES (${currentDisplayCount}/${filteredGames.length}) 🎮</button>
+    </div>`;
+  }
+
+  container.innerHTML = gamesHtml;
+
+  // Attach click events to game tiles
+  document.querySelectorAll('.game-tile').forEach(tile => {
+    tile.addEventListener('click', (e) => {
+      e.preventDefault();
+      const rawData = tile.getAttribute('data-game');
+      if (rawData) {
+        try {
+          handleGameClick(JSON.parse(rawData));
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+    });
+  });
+
+  // Attach see more button event
+  if (hasMore) {
+    const seeMoreBtn = document.getElementById("seeMoreBtn");
+    if (seeMoreBtn) {
+      seeMoreBtn.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentDisplayCount += GAMES_PER_PAGE;
+        renderGameGrid("");
+      });
+    }
+  }
+}
+
+function pickRandomGame() {
+  if (shuffledGames.length === 0) return;
+  const randomIndex = Math.floor(Math.random() * shuffledGames.length);
+  const randomGame = shuffledGames[randomIndex];
+  handleGameClick(randomGame);
+  showArcadeToast(`🎲 RANDOM: ${randomGame.name} opening in new tab! 🎲`);
+}
+
+function initSearch() {
+  const searchInput = document.getElementById("searchInput");
+  if (searchInput) {
+    searchInput.addEventListener("input", e => {
+      renderGameGrid(e.target.value);
+    });
+  }
+}
+
+function initClearRecent() {
+  const clearBtn = document.getElementById("clearRecentBtn");
+  if (clearBtn) {
+    clearBtn.addEventListener("click", () => {
+      clearRecentHistory();
+      showArcadeToast("🧹 recent history wiped clean!");
+    });
+  }
+}
+
+function initRandomBtn() {
+  const randBtn = document.getElementById("randomGameBtn");
+  if (randBtn) {
+    randBtn.addEventListener("click", () => {
+      pickRandomGame();
+    });
+  }
+}
+
+function init() {
+  initShuffledGames();
+  renderGameGrid("");
+  initSearch();
+  initClearRecent();
+  initRandomBtn();
+  renderRecentList();
+}
+
+document.addEventListener("DOMContentLoaded", init);
 </script>
 </body>
 </html>
