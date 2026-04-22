@@ -346,12 +346,13 @@
   
 const DEFAULT_ICON = "🎮";
 
-// PAGINATION & RANDOMIZATION VARIABLES
-let currentDisplayCount = 60;
-const GAMES_PER_PAGE = 60;
+// PAGINATION SETTINGS - Change this number to show more/fewer games per load
+const GAMES_PER_PAGE = 48;
+let currentDisplayCount = GAMES_PER_PAGE;
 let shuffledGames = [];
+let allGames = [];
 
-// Shuffle array function (Fisher-Yates)
+// Shuffle function
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -360,11 +361,7 @@ function shuffleArray(arr) {
   return arr;
 }
 
-// Initialize shuffled games
-function initShuffledGames() {
-  shuffledGames = shuffleArray([...GAMES_CATALOG]);
-}
-
+// Load recent games from localStorage
 function loadRecentGames() {
   const stored = localStorage.getItem("arcade_fun_recent_games");
   if (!stored) return [];
@@ -377,10 +374,12 @@ function loadRecentGames() {
   return [];
 }
 
+// Save recent games to localStorage
 function saveRecentGames(recentArray) {
   localStorage.setItem("arcade_fun_recent_games", JSON.stringify(recentArray.slice(0, 12)));
 }
 
+// Add game to recent list
 function addGameToRecent(game) {
   let recent = loadRecentGames();
   recent = recent.filter(g => g.name !== game.name);
@@ -390,11 +389,13 @@ function addGameToRecent(game) {
   renderRecentList();
 }
 
+// Clear recent history
 function clearRecentHistory() {
   saveRecentGames([]);
   renderRecentList();
 }
 
+// Render recent games list
 function renderRecentList() {
   const recentContainer = document.getElementById("recentListContainer");
   if (!recentContainer) return;
@@ -421,6 +422,7 @@ function renderRecentList() {
   });
 }
 
+// Escape HTML to prevent injection
 function escapeHtml(str) {
   if (!str) return '';
   return str.replace(/[&<>]/g, function(m) {
@@ -431,6 +433,7 @@ function escapeHtml(str) {
   });
 }
 
+// Handle game click - opens in new tab and saves to recent
 function handleGameClick(game) {
   addGameToRecent(game);
   if (game.url && game.url !== '#') {
@@ -444,6 +447,7 @@ function handleGameClick(game) {
   renderRecentList();
 }
 
+// Toast notification
 let toastTimeout;
 function showArcadeToast(msg) {
   let existingToast = document.getElementById("arcade-toast");
@@ -473,19 +477,27 @@ function showArcadeToast(msg) {
   }, 1800);
 }
 
+// Main render function for game grid
 function renderGameGrid(filterText = "") {
   const container = document.getElementById("gamesContainer");
   if (!container) return;
 
   const lowerFilter = filterText.toLowerCase().trim();
-  let filteredGames = lowerFilter === "" ? shuffledGames : GAMES_CATALOG.filter(game => game.name.toLowerCase().includes(lowerFilter));
+  
+  // Determine which games to show based on search
+  let filteredGames;
+  if (lowerFilter === "") {
+    filteredGames = shuffledGames;
+  } else {
+    filteredGames = allGames.filter(game => game.name.toLowerCase().includes(lowerFilter));
+  }
 
   if (filteredGames.length === 0) {
     container.innerHTML = `<div style="grid-column:1/-1; text-align:center; background:#472e5e; padding:2rem; border-radius:60px; color:#ffdd99;">😭 NO GAMES FOUND — try something else 😭</div>`;
     return;
   }
 
-  // If searching, show all results without pagination
+  // If searching, show ALL results (no pagination)
   if (lowerFilter !== "") {
     container.innerHTML = filteredGames.map(game => `
       <a href="#" class="game-tile" data-game='${JSON.stringify(game)}'>
@@ -494,19 +506,7 @@ function renderGameGrid(filterText = "") {
       </a>
     `).join("");
     
-    document.querySelectorAll('.game-tile').forEach(tile => {
-      tile.addEventListener('click', (e) => {
-        e.preventDefault();
-        const rawData = tile.getAttribute('data-game');
-        if (rawData) {
-          try {
-            handleGameClick(JSON.parse(rawData));
-          } catch (err) {
-            console.warn(err);
-          }
-        }
-      });
-    });
+    attachGameTileEvents();
     return;
   }
 
@@ -522,27 +522,13 @@ function renderGameGrid(filterText = "") {
   `).join("");
 
   if (hasMore) {
-    gamesHtml += `<div class="see-more-container" style="grid-column:1/-1; display:flex; justify-content:center; margin:1.5rem 0 0.5rem;">
-      <button id="seeMoreBtn" class="random-btn" style="background:#6c3c9e; font-size:1.2rem; padding:0.8rem 2rem; cursor:pointer;">🎮 SEE MORE GAMES (${currentDisplayCount}/${filteredGames.length}) 🎮</button>
+    gamesHtml += `<div class="see-more-container" style="grid-column:1/-1; display:flex; justify-content:center; margin-top:1.5rem;">
+      <button id="seeMoreBtn" class="random-btn" style="background:#6c3c9e; font-size:1.2rem; padding:0.8rem 2rem; cursor:pointer;">👇 SEE MORE (${currentDisplayCount}/${filteredGames.length}) 👇</button>
     </div>`;
   }
 
   container.innerHTML = gamesHtml;
-
-  // Attach click events to game tiles
-  document.querySelectorAll('.game-tile').forEach(tile => {
-    tile.addEventListener('click', (e) => {
-      e.preventDefault();
-      const rawData = tile.getAttribute('data-game');
-      if (rawData) {
-        try {
-          handleGameClick(JSON.parse(rawData));
-        } catch (err) {
-          console.warn(err);
-        }
-      }
-    });
-  });
+  attachGameTileEvents();
 
   // Attach see more button event
   if (hasMore) {
@@ -557,14 +543,33 @@ function renderGameGrid(filterText = "") {
   }
 }
 
+// Attach click events to game tiles
+function attachGameTileEvents() {
+  document.querySelectorAll('.game-tile').forEach(tile => {
+    tile.addEventListener('click', (e) => {
+      e.preventDefault();
+      const rawData = tile.getAttribute('data-game');
+      if (rawData) {
+        try {
+          handleGameClick(JSON.parse(rawData));
+        } catch (err) {
+          console.warn(err);
+        }
+      }
+    });
+  });
+}
+
+// Pick and open a random game
 function pickRandomGame() {
-  if (shuffledGames.length === 0) return;
-  const randomIndex = Math.floor(Math.random() * shuffledGames.length);
-  const randomGame = shuffledGames[randomIndex];
+  if (allGames.length === 0) return;
+  const randomIndex = Math.floor(Math.random() * allGames.length);
+  const randomGame = allGames[randomIndex];
   handleGameClick(randomGame);
   showArcadeToast(`🎲 RANDOM: ${randomGame.name} opening in new tab! 🎲`);
 }
 
+// Initialize search input
 function initSearch() {
   const searchInput = document.getElementById("searchInput");
   if (searchInput) {
@@ -574,6 +579,7 @@ function initSearch() {
   }
 }
 
+// Initialize clear recent button
 function initClearRecent() {
   const clearBtn = document.getElementById("clearRecentBtn");
   if (clearBtn) {
@@ -584,6 +590,7 @@ function initClearRecent() {
   }
 }
 
+// Initialize random button
 function initRandomBtn() {
   const randBtn = document.getElementById("randomGameBtn");
   if (randBtn) {
@@ -593,15 +600,24 @@ function initRandomBtn() {
   }
 }
 
+// Initialize everything
 function init() {
-  initShuffledGames();
+  // Make a copy of GAMES_CATALOG
+  allGames = [...GAMES_CATALOG];
+  // Create shuffled version for random display
+  shuffledGames = shuffleArray([...GAMES_CATALOG]);
+  // Reset pagination counter
+  currentDisplayCount = GAMES_PER_PAGE;
+  // Render the grid
   renderGameGrid("");
+  // Initialize all event listeners
   initSearch();
   initClearRecent();
   initRandomBtn();
   renderRecentList();
 }
 
+// Start everything when page loads
 document.addEventListener("DOMContentLoaded", init);
 </script>
 </body>
